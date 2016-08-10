@@ -768,8 +768,14 @@
      * @return {String}
      */
     Taggle.prototype._formatTag = function(text) {
-        return this.settings.preserveCase ? text : text.toLowerCase();
+        return this.settings.preserveCase ? this._removeBraces(text) : this._removeBraces(text.toLowerCase());
     };
+    
+    Taggle.prototype._removeBraces(text) {
+        return text
+            .replace(/^\{\{/,'')//{{ at begining of line
+            .replace(/\}\}$/,'')//}} at end of line
+    }
 
     Taggle.prototype.getTags = function() {
         return {
